@@ -1,0 +1,33 @@
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<h2>Register</h2>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label>Email</label>
+    <input type="text" autocomplete="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && signUpFromControls.email.errors }" />
+    <div *ngIf="submitted && signUpFromControls.email.errors" class="invalid-feedback">
+      <div *ngIf="signUpFromControls.email.errors.required">Email is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" autocomplete="username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && signUpFromControls.username.errors }" />
+    <div *ngIf="submitted && signUpFromControls.username.errors" class="invalid-feedback">
+      <div *ngIf="signUpFromControls.username.errors.required">Username is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" autocomplete="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && signUpFromControls.password.errors }" />
+    <div *ngIf="submitted && signUpFromControls.password.errors" class="invalid-feedback">
+      <div *ngIf="signUpFromControls.password.errors.required">Password is required</div>
+      <div *ngIf="signUpFromControls.password.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Sign Up
+    </button>
+    <a routerLink="/sign-in" class="btn btn-link">Cancel</a>
+  </div>
+</form>

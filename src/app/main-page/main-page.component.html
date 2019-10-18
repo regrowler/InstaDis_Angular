@@ -1,0 +1,18 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/uselessData">Home</a>
+        <a class="nav-item nav-link" (click)="logout()" routerLink="/sign-in">Change User</a>
+    </div>
+</nav>
+
+<!-- main content container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
