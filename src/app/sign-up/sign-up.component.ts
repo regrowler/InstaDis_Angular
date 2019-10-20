@@ -52,17 +52,14 @@ export class SignUpComponent implements OnInit {
         let emailRegExp: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         let value = this.signUpForm.value;
         if(!this.SignUpFormValueChecker('Email',value.email, emailRegExp)){
-            console.log('email');
             return;
         }
         let loginRegExp: RegExp = /^[a-zA-Z_0123456789]*$/;
         if(!this.SignUpFormValueChecker('Username', value.username, loginRegExp)){
-            console.log('username');
             return;
         }
         let passwordRegExp: RegExp = /^[a-zA-Z0123456789]*$/;
         if(!this.SignUpFormValueChecker('Password', value.password, passwordRegExp)){
-            console.log('login');
             return;
         }
 
