@@ -16,13 +16,8 @@ export class UselessDataDisplayerComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('useless data on init');
         this.uselessService.getUselessData()
             .subscribe( response => {
-                console.log('response: ' + response);
-                console.log('');
-                console.log('');
-                console.log('');
                 this.info = response;
             });
     }

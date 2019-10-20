@@ -9,7 +9,7 @@ import {
     HttpHeaders
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import {  mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { USERS } from "../user";
 
 let users = USERS;
@@ -21,7 +21,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const { url, method, headers, body } = request;
         const userStorage = JSON.parse(localStorage.getItem('users'));
 
-        // wrap in delayed observable to simulate server api call
         return of(null)
           .pipe(mergeMap(handleRoute));
 
@@ -39,8 +38,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function getDataBasedOnRequest() {
-            let token = headers.get('authorization');
-            return SendHttpResponse(200,new HttpHeaders(),token);
+            let authorizationToken = headers.get('authorization');
+            return SendHttpResponse(200,new HttpHeaders(), authorizationToken);
         }
 
 
