@@ -125,9 +125,9 @@
       "spec": false
     },
     "@schematics/angular:component": {
-      "inlineStyle": true,
-      "inlineTemplate": true,
       "spec": false,
+      "inlineStyle": false,
+      "inlineTemplate": false,
       "prefix": "app",
       "styleext": "css"
     },

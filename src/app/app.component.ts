@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <h1>Hello World</h1>
-  `
+    selector: 'app-root',
+    templateUrl : './app.component.html',
+    styleUrls : ['./app.component.css']
 })
 export class AppComponent {
+
+
+    constructor(
+      private router: Router
+    ) {
+        this.router.navigate(['/sign-in']);
+    }
 
 }
