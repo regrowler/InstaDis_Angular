@@ -1,0 +1,30 @@
+<div class="row" *ngIf="!post; else main_content">
+    <h1>Loading...</h1>
+</div>
+<ng-template #main_content>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <img [src]="'http://localhost:3000/' + post.imagePath" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <form class="card-body" (submit)="updatePost(title, description)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Post's Title" [value]="post.title" #title>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="2" class="form-control" placeholder="Post's Description" [value]="post.description" #description></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block">
+                        Update
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-danger" (click)="deletePost(post._id)">
+        Delete
+    </button>
+</ng-template>
