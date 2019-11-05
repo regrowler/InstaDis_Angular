@@ -56,8 +56,8 @@ export class SignInComponent implements OnInit {
           .subscribe(
             response => {
                 this.tokenService.token = response.headers.get(this.tokenService.header);
-                this.router.navigate(['/uselessData']);
-                localStorage.setItem('token',this.tokenService.token);
+                sessionStorage.setItem('token',this.tokenService.token);
+                this.router.navigate(['/']);
             },
             error => {
                 this.error = error;

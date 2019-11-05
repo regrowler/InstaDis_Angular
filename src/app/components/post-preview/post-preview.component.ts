@@ -21,6 +21,7 @@ export class PostPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('navigation');
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.postService.getPost(this.id)
@@ -36,7 +37,7 @@ export class PostPreviewComponent implements OnInit {
   deletePost(id: string) {
     this.postService.deletePost(id)
       .subscribe(res => {
-        console.log(res)
+        console.log(res);
         this.router.navigate(['/posts']);
       })
   }

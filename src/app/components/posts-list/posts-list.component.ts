@@ -12,6 +12,7 @@ import { Post } from '../../interfaces/Post'
 export class PostsListComponent implements OnInit {
 
   posts: Post[] = [];
+  omegalul: string = "Post";
 
   constructor(
     private postService: PostService,
@@ -19,6 +20,7 @@ export class PostsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('post-list');
     this.postService.getPosts()
       .subscribe(
         res => {

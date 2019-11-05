@@ -1,5 +1,4 @@
 export class User {
-    email: string;
     username: string;
     password: string;
     id: number;
@@ -7,6 +6,6 @@ export class User {
 
 
 export let USERS: User[] = [
-    { email: 'email@email', username:'test', password:'test', id: 1}
+    { username:'test', password:'test', id: 1}
 ];
 
