@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
@@ -10,14 +10,16 @@ import { Post } from '../../interfaces/Post'
   styleUrls: ['./posts-list.component.css']
 })
 export class PostsListComponent implements OnInit {
-
   posts: Post[] = [];
-  omegalul: string = "Post";
+    //delete this, after connect backend
+      testposts: any[] = [];
 
   constructor(
     private postService: PostService,
     private router: Router 
-  ) { }
+  ) { //delete this, after connect backend
+    this.testposts = this.postService.gettestposts(); 
+  }
 
   ngOnInit() {
     console.log('post-list');

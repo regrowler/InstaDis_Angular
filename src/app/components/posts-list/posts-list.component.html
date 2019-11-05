@@ -1,13 +1,26 @@
 <div class="row">
-    {{omegalul}}
     <div class="col-md-4 p-4" *ngFor="let post of posts">
-        <div class="card card-post" (click)="selectedCard(post._id)">
-            <div class="card-header">
+        <div class="card card-deck" (click)="selectedCard(post._id)">
+            <div class="card-header text-center">
                 {{post.title}}
             </div>
-            <img [src]="'http://localhost:3000/' + post.imagePath" class="img-card-top w-100">
+            <img [src]="'http://insta.local/' + post.imagePath" class="img-card-top w-100">
             <div class="card-body">
                 <p>{{post.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete this, after connect backend -->
+<div class="row">
+    <div class="col-md-4 p-4" *ngFor="let testpost of testposts">
+        <div class="card card-deck">
+            <div class="card-header text-center">
+                {{testpost.titletest}}
+            </div>
+            <img src = "{{testpost.testimage}}" class="img-card-top w-100">
+            <div class="card-body">
+                <p>{{testpost.testdescription}}</p>
             </div>
         </div>
     </div>

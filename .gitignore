@@ -4,11 +4,13 @@
 /dist
 /tmp
 /out-tsc
+/src/assets/img
 
 # dependencies
 /node_modules
 
 # IDEs and editors
+/.vs
 /.idea
 .project
 .classpath

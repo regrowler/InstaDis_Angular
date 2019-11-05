@@ -7,8 +7,10 @@ import {Post} from '../interfaces/Post'
   providedIn: 'root'
 })
 export class PostService {
+  //delete this, after connect backend
+   testposts = [];
 
-  URI = 'http://localhost:3000/api/posts';
+  URI = ' http://insta.local/posts';
 
   constructor(private http: HttpClient) { }
 
@@ -35,4 +37,18 @@ export class PostService {
   updatePost(id: string, title: string, description: string) {
     return this.http.put(`${this.URI}/${id}`, {title, description});
   }
+
+ //delete this, after connect backend
+  gettestposts(){
+  	  return this.testposts = POSTS;
+  }
+
 }
+
+//delete this, after connect backend
+  const POSTS = [
+	{ "idtest": 1, "titletest": "My cat", "testdescription": "I need some sleep", "testimage":"assets/img/1.jpg"},
+    { "idtest": 2, "titletest": "Joker", "testdescription": "I thought ... my life was a tragedy... but now I realize... it's ... a Comedy.", "testimage":"assets/img/2.jpg"},
+	{ "idtest": 3, "titletest": "Bart Simpson", "testdescription": "Enemies are everywhere", "testimage":"assets/img/3.jpg"},
+  ]
+
