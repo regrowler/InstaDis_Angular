@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
     private _header = 'authorization';
-    private _token:string;
+    private _token: string;
 
 
     get header(): string {

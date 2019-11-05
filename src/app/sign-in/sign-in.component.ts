@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../service/authorization.service";
 import { Router } from "@angular/router";
-import {TokenService} from "../service/token.service";
+import { TokenService } from "../service/token.service";
 
 @Component({
     selector: 'app-login',
@@ -14,6 +14,12 @@ export class SignInComponent implements OnInit {
     loading = false;
     submitted = false;
     error: string;
+    usernameRegularExpression = /^[a-zA-Z_]*$/;
+
+    errorCodeMessage: string[] = [
+        "Username starts with digits",
+        "Username contains prohibited symbols"
+    ];
 
     constructor(
       private formBuilder: FormBuilder,
@@ -39,18 +45,34 @@ export class SignInComponent implements OnInit {
             return;
         }
 
+        let code = this.isValidUsernameChecker(this.loginForm.value.username);
+        if(code > -1){
+            this.error = this.errorCodeMessage[code];
+            return;
+        }
+
         this.loading = true;
         this.authenticationService.login(this.loginForm.value)
           .subscribe(
             response => {
                 this.tokenService.token = response.headers.get(this.tokenService.header);
                 this.router.navigate(['/uselessData']);
-                console.log(this.tokenService.header + ': ' + this.tokenService.token);
+                localStorage.setItem('token',this.tokenService.token);
             },
             error => {
                 this.error = error;
                 this.loading = false;
             });
+    }
+
+    isValidUsernameChecker(username : string) : number {
+        if(username.search(/\d/) == 0) {
+            return 0;
+        }
+        if(!this.usernameRegularExpression.test(username)){
+           return 1;
+        }
+        return -1; // everything is OK
     }
 
 }
