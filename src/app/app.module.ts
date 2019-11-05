@@ -10,7 +10,10 @@ import { MainPageComponent } from "./main-page/main-page.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { UselessDataDisplayerComponent } from './useless-data-displayer/useless-data-displayer.component';
-
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { PostsListComponent } from './components/posts-list/posts-list.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
+import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 
 @NgModule({
    imports: [
@@ -21,10 +24,20 @@ import { UselessDataDisplayerComponent } from './useless-data-displayer/useless-
    ],
   declarations: [
     AppComponent,
+    loginRegistration
     MainPageComponent,
     SignInComponent,
     SignUpComponent,
     UselessDataDisplayerComponent
+    NavigationComponent,
+    PostsListComponent,
+    PostFormComponent,
+    PostPreviewComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
    providers: [
      fakeBackendProvider
