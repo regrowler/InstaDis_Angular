@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UselessDataService } from "../service/-useless-data.service";
+import { UselessDataService } from "../../service/-useless-data.service";
 
 @Component({
     selector: 'app-useless-data-displayer',

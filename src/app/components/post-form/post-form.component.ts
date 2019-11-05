@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router'
-import {PostService} from '../../service/post.service'
+import { Router } from '@angular/router'
+import { PostService } from '../../service/post.service'
 
 interface HtmlInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
