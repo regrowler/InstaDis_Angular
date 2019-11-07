@@ -21,7 +21,7 @@ export class PostPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('navigation');
+    console.log('PostPreviewComponent');
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.postService.getPost(this.id)

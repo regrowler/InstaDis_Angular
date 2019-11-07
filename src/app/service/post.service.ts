@@ -2,53 +2,51 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import {Post} from '../interfaces/Post'
+import {Observable, of} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PostService {
-  //delete this, after connect backend
-   testposts = [];
+    // todo: change url
+    URI = ' http://insta.local/posts';
 
-  URI = ' http://insta.local/posts';
+    constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
+    createPost(title: string, description: string, post: File) {
+        const fd = new FormData();
+        fd.append('title', title);
+        fd.append('description', description);
+        fd.append('image', post);
+        return this.http.post(this.URI, fd);
+    }
 
-  createPost(title: string, description: string, post: File) {
-    const fd = new FormData();
-    fd.append('title', title);
-    fd.append('description', description);
-    fd.append('image', post);
-    return this.http.post(this.URI, fd);
-  }
+    getPosts(): Observable<Post[]>  {
+        return this.http.get<Post[]>(this.URI);
+    }
 
-  getPosts() {
-    return this.http.get<Post[]>(this.URI);
-  }
+    getPost(id: string): Observable<Post> {
+        return this.http.get<Post>(`${this.URI}/${id}`);
+    }
 
-  getPost(id: string) {
-    return this.http.get<Post>(`${this.URI}/${id}`);
-  }
+    deletePost(id: string): Observable<any> {
+        return this.http.delete(`${this.URI}/${id}`);
+    }
 
-  deletePost(id: string) {
-    return this.http.delete(`${this.URI}/${id}`);
-  }
+    updatePost(id: string, title: string, description: string): Observable<any> {
+        return this.http.put(`${this.URI}/${id}`, {title, description});
+    }
 
-  updatePost(id: string, title: string, description: string) {
-    return this.http.put(`${this.URI}/${id}`, {title, description});
-  }
-
- //delete this, after connect backend
-  gettestposts(){
-  	  return this.testposts = POSTS;
-  }
+    //delete this, after connect backend
+    getTestPosts() : Observable<Post[]>{
+        return of(POSTS);
+    }
 
 }
 
-//delete this, after connect backend
-  const POSTS = [
-	{ "idtest": 1, "titletest": "My cat", "testdescription": "I need some sleep", "testimage":"assets/img/1.jpg"},
-    { "idtest": 2, "titletest": "Joker", "testdescription": "I thought ... my life was a tragedy... but now I realize... it's ... a Comedy.", "testimage":"assets/img/2.jpg"},
-	{ "idtest": 3, "titletest": "Bart Simpson", "testdescription": "Enemies are everywhere", "testimage":"assets/img/3.jpg"},
-  ]
+const POSTS : Post[] = [
+    { _id: '1', title: "My cat", description: "Cat", imagePath:"assets/img/1.jpg"},
+    { _id: '2', title: "Joker", description: "Joker.", imagePath:"assets/img/2.jpg"},
+    { _id: '3', title: "Bart Simpson", description: "Bart", imagePath:"assets/img/3.jpg"},
+];
 
