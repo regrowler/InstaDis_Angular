@@ -64,8 +64,7 @@ export class SignUpComponent implements OnInit {
         }
 
         this.loading = true;
-        this.signUpService.signUp(this.signUpForm.value)
-          .pipe(first())
+        this.signUpService.signUp(this.signUpForm.value.username, this.signUpForm.value.password)
           .subscribe(
             response => {
                 this.router.navigate(['/sign-in'], { queryParams: { signedUp: true }});

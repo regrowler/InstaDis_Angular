@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
@@ -19,8 +19,7 @@ export class PostsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        // delete this after backend connected
-        this.postService.getTestPosts()
+        this.postService.getPosts()
             .subscribe(
                 res => {
                     this.posts = res;

@@ -6,10 +6,10 @@ import {Observable} from "rxjs";
     providedIn: 'root'
 })
 export class SignUpService {
-
+    url: string = "http://localhost:8080/users/sign-up";
     constructor(private http: HttpClient) { }
 
-    signUp(signUpForm) : Observable<any> {
-        return this.http.post('http://localhost:4200/users/sign-up', signUpForm);
+    signUp(login: string, password: string) : Observable<any> {
+        return this.http.post<any>(this.url, {"login": login, "password": password});
     }
 }

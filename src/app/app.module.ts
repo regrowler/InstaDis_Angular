@@ -32,7 +32,6 @@ import { PostPreviewComponent } from './components/post-preview/post-preview.com
     PostPreviewComponent
   ],
    providers: [
-     fakeBackendProvider
    ],
   bootstrap: [AppComponent]
 })

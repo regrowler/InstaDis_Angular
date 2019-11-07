@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
-import {Post} from '../../interfaces/Post'
+import { Post } from '../../interfaces/Post'
 
 @Component({
   selector: 'app-post-preview',
@@ -21,7 +21,6 @@ export class PostPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('PostPreviewComponent');
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       this.postService.getPost(this.id)

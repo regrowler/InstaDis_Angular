@@ -52,11 +52,9 @@ export class SignInComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.loginForm.value)
+        this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
           .subscribe(
             response => {
-                this.tokenService.token = response.headers.get(this.tokenService.header);
-                sessionStorage.setItem('token',this.tokenService.token);
                 this.router.navigate(['/']);
             },
             error => {

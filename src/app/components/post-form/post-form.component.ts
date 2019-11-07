@@ -19,7 +19,6 @@ export class PostFormComponent implements OnInit {
     constructor(private postService: PostService, private router: Router) { }
 
     ngOnInit() {
-        console.log('post-form');
     }
 
     onPostSelected(event: HtmlInputEvent): void {

@@ -5,23 +5,28 @@ import {map} from "rxjs/operators";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private tokenUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(sessionStorage.getItem('token'));
-    public tokenUser = this.tokenUserSubject.asObservable();
+    private url: string = "http://localhost:8080/users/sign-in";
+
+    private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(sessionStorage.getItem('currentUser'));
+    public currentUser = this.currentUserSubject.asObservable();
+
+
     constructor(private http: HttpClient) {
     }
 
 
-    login(signInForm) : Observable<HttpResponse<any>>{
-        return this.http.post<any>('http://localhost:4200/users/sign-in', signInForm, {observe: 'response'})
-            .pipe(map(token =>{
-                localStorage.setItem('currentUser', JSON.stringify(token));
-                this.tokenUserSubject.next(token);
-                return token;
-            }));
+    login(login: string, password: string) : Observable<HttpResponse<any>>{
+        return this.http.post<any>(this.url, {"login": login, "password": password})
+                    .pipe(map(user =>{
+                        console.log(user);
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.currentUserSubject.next(user);
+                        return user;
+                    }));
     }
 
     logout(): void {
-        localStorage.removeItem('token');
-        this.tokenUserSubject.next(false);
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(false);
     }
 }

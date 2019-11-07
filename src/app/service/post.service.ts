@@ -8,45 +8,35 @@ import {Observable, of} from "rxjs";
     providedIn: 'root'
 })
 export class PostService {
-    // todo: change url
-    URI = ' http://insta.local/posts';
+    // todo: change url to http://localhost:8080/posts
+    url = 'http://localhost/posts';
 
-    constructor(private http: HttpClient) { }
+
+    constructor(private http: HttpClient) {
+    }
 
     createPost(title: string, description: string, post: File) {
         const fd = new FormData();
         fd.append('title', title);
         fd.append('description', description);
         fd.append('image', post);
-        return this.http.post(this.URI, fd);
+        return this.http.post(this.url, fd);
     }
 
-    getPosts(): Observable<Post[]>  {
-        return this.http.get<Post[]>(this.URI);
+    getPosts(): Observable<Post[]> {
+        return this.http.get<Post[]>(this.url);
     }
 
     getPost(id: string): Observable<Post> {
-        return this.http.get<Post>(`${this.URI}/${id}`);
+        return this.http.get<Post>(`${this.url}/${id}`);
     }
 
     deletePost(id: string): Observable<any> {
-        return this.http.delete(`${this.URI}/${id}`);
+        return this.http.delete(`${this.url}/${id}`);
     }
 
     updatePost(id: string, title: string, description: string): Observable<any> {
-        return this.http.put(`${this.URI}/${id}`, {title, description});
+        return this.http.put(`${this.url}/${id}`, {title, description});
     }
-
-    //delete this, after connect backend
-    getTestPosts() : Observable<Post[]>{
-        return of(POSTS);
-    }
-
 }
-
-const POSTS : Post[] = [
-    { _id: '1', title: "My cat", description: "Cat", imagePath:"assets/img/1.jpg"},
-    { _id: '2', title: "Joker", description: "Joker.", imagePath:"assets/img/2.jpg"},
-    { _id: '3', title: "Bart Simpson", description: "Bart", imagePath:"assets/img/3.jpg"},
-];
 
