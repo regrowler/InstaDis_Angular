@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
+import {AuthenticationService} from "../../service/authorization.service";
 
 @Component({
   selector: 'app-post-preview',
@@ -13,11 +14,13 @@ export class PostPreviewComponent implements OnInit {
 
   id: string;
   post: Post;
+  user: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    // private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {

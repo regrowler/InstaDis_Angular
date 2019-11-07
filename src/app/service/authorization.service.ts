@@ -14,6 +14,9 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
     }
 
+    get currentUserValue(): any{
+        return this.currentUserSubject.value;
+    }
 
     login(login: string, password: string) : Observable<HttpResponse<any>>{
         return this.http.post<any>(this.url, {"login": login, "password": password})

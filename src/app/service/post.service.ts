@@ -9,18 +9,19 @@ import {Observable, of} from "rxjs";
 })
 export class PostService {
     // todo: change url to http://localhost:8080/posts
-    url = 'http://localhost/posts';
+    url = 'http://localhost:8080/posts';
 
 
     constructor(private http: HttpClient) {
     }
 
-    createPost(title: string, description: string, post: File) {
-        const fd = new FormData();
-        fd.append('title', title);
-        fd.append('description', description);
-        fd.append('image', post);
-        return this.http.post(this.url, fd);
+    createPost(user: any, title: string, description: string, file: File): Observable<any> {
+        return this.http.post<any>(this.url, {
+            "title": title,
+            "user": user,
+            "description": description,
+            "file": file
+        });
     }
 
     getPosts(): Observable<Post[]> {

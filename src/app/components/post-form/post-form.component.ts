@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { PostService } from '../../service/post.service'
+import {AuthenticationService} from "../../service/authorization.service";
 
 interface HtmlInputEvent extends Event {
     target: HTMLInputElement & EventTarget;
@@ -15,10 +16,15 @@ export class PostFormComponent implements OnInit {
 
     postSelected: string | ArrayBuffer;
     file: File;
+    user: any;
 
-    constructor(private postService: PostService, private router: Router) { }
+    constructor(private postService: PostService,
+                private router: Router,
+                private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
+        this.user = this.authenticationService.currentUserValue;
+        console.log(this.user);
     }
 
     onPostSelected(event: HtmlInputEvent): void {
@@ -33,7 +39,7 @@ export class PostFormComponent implements OnInit {
 
     uploadPost(title: HTMLInputElement, description: HTMLTextAreaElement) {
         this.postService
-            .createPost(title.value, description.value, this.file)
+            .createPost(this.user,title.value, description.value, this.file)
             .subscribe(
                 res => {
                     console.log(res);
