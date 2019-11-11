@@ -24,20 +24,20 @@ export class PostService {
         });
     }
 
-    getPosts(): Observable<Post[]> {
-        return this.http.get<Post[]>(this.url);
+    getPosts(id: number): Observable<Post[]> {
+        return this.http.get<Post[]>(this.url + '/' + id);
     }
 
-    getPost(id: string): Observable<Post> {
-        return this.http.get<Post>(`${this.url}/${id}`);
+    getPost(id: number): Observable<Post> {
+        return this.http.get<Post>(this.url + '/' + id);
     }
 
-    deletePost(id: string): Observable<any> {
-        return this.http.delete(`${this.url}/${id}`);
+    deletePost(id: number): Observable<any> {
+        return this.http.delete(this.url + '/' + id);
     }
 
-    updatePost(id: string, title: string, description: string): Observable<any> {
-        return this.http.put(`${this.url}/${id}`, {title, description});
+    updatePost(id: number, title: string, description: string): Observable<any> {
+        return this.http.put(this.url + '/' + id, {title, description});
     }
 }
 

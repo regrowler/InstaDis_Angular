@@ -24,7 +24,6 @@ export class PostFormComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.authenticationService.currentUserValue;
-        console.log(this.user);
     }
 
     onPostSelected(event: HtmlInputEvent): void {
@@ -43,7 +42,7 @@ export class PostFormComponent implements OnInit {
             .subscribe(
                 res => {
                     console.log(res);
-                    this.router.navigate(['/posts'])
+                    this.router.navigate(['/posts',this.user.id])
                 },
                 err => console.log(err)
             );

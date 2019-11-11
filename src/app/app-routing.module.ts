@@ -9,9 +9,9 @@ import { PostPreviewComponent } from './components/post-preview/post-preview.com
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'posts', component: PostsListComponent },
-  { path: 'posts/new', component: PostFormComponent },
-  { path: 'posts/:id', component: PostPreviewComponent },
+  { path: 'posts/:id', component: PostsListComponent },
+  { path: 'posts-upload/new', component: PostFormComponent },
+  { path: 'post-preview/:id', component: PostPreviewComponent },
   { path: '', redirectTo: '/posts',  pathMatch: 'full' }
 ];
 

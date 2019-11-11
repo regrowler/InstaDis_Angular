@@ -8,13 +8,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" *ngIf="currentUser">
                 <li class="nav-item">
-                    <a class="nav-link" [queryParams]="{'user': currentUser}" [routerLink]="['/posts']">My Posts</a>
+                    <a class="nav-link" [routerLink]="['posts',currentUser.id]">My Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/posts/new">Upload a Post</a>
+                    <a class="nav-link" [routerLink]="['posts-upload/new']">Upload a Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/sign-in" (click)="logout()">Log out</a>
+                    <a class="nav-link" [routerLink]="['/sign-in']" (click)="logout()">Log out</a>
                 </li>
             </ul>
         </div>

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
-import {AuthenticationService} from "../../service/authorization.service";
 
 @Component({
   selector: 'app-post-preview',
@@ -12,19 +11,18 @@ import {AuthenticationService} from "../../service/authorization.service";
 })
 export class PostPreviewComponent implements OnInit {
 
-  id: string;
+  id: number;
   post: Post;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
     private router: Router,
-    // private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = +params['id'];
       this.postService.getPost(this.id)
         .subscribe(
           res => {
@@ -35,7 +33,7 @@ export class PostPreviewComponent implements OnInit {
     });
   }
 
-  deletePost(id: string) {
+  deletePost(id: number) {
     this.postService.deletePost(id)
       .subscribe(res => {
         console.log(res);
@@ -44,7 +42,7 @@ export class PostPreviewComponent implements OnInit {
   }
 
   updatePost(title: HTMLInputElement, description: HTMLInputElement): boolean {
-    this.postService.updatePost(this.post._id, title.value, description.value)
+    this.postService.updatePost(this.post.id, title.value, description.value)
       .subscribe(res => {
         console.log(res);
         this.router.navigate(['/posts']);

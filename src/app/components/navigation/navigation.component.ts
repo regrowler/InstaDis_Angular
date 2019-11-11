@@ -17,7 +17,6 @@ export class NavigationComponent implements OnInit {
         this.authService.currentUser.subscribe(user =>{
             this.currentUser = user
         });
-        if(this.currentUser) this.router.navigate(['']);
     }
 
     logout() {

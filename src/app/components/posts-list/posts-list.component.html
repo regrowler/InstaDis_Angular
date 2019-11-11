@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let post of posts">
-        <div class="card card-deck" (click)="selectedCard(post._id)">
+        <div class="card card-deck" (click)="selectedCard(post.id)">
             <div class="card-header text-center">
                 {{post.title}}
             </div>
