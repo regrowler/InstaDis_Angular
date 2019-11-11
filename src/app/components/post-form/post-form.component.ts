@@ -39,7 +39,7 @@ export class PostFormComponent implements OnInit {
 
     uploadPost(title: HTMLInputElement, description: HTMLTextAreaElement) {
         this.postService
-            .createPost(this.user,title.value, description.value, this.file)
+            .createPost(this.user,title.value, description.value, this.postSelected)
             .subscribe(
                 res => {
                     console.log(res);

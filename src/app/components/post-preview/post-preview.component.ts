@@ -14,7 +14,6 @@ export class PostPreviewComponent implements OnInit {
 
   id: string;
   post: Post;
-  user: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,

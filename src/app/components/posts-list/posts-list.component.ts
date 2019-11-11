@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
@@ -11,19 +11,22 @@ import { Post } from '../../interfaces/Post'
 })
 export class PostsListComponent implements OnInit {
     posts: Post[] = [];
+    userToPreview: any;
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         private postService: PostService,
         private router: Router
     ) {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe( data => console.log(data.user));
+        console.log(this.userToPreview);
         this.postService.getPosts()
             .subscribe(
                 res => {
-                    console.log(res);
-                    this.posts = res;
+                    this.posts = res
                 },
                 err => console.log(err)
             )

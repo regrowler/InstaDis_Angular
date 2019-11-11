@@ -15,12 +15,12 @@ export class PostService {
     constructor(private http: HttpClient) {
     }
 
-    createPost(user: any, title: string, description: string, file: File): Observable<any> {
+    createPost(user: any, title: string, description: string, postSelected: string | ArrayBuffer): Observable<any> {
         return this.http.post<any>(this.url, {
             "title": title,
             "user": user,
             "description": description,
-            "file": file
+            "file": postSelected
         });
     }
 
