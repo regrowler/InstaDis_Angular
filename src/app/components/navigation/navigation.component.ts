@@ -35,6 +35,7 @@ export class NavigationComponent implements OnInit {
 
     onSubmit() {
         //todo: ask database if such user exists
+        
         // let answer;
         // this.userService.ifUserExists(this.usernameFormGroup.value.username).subscribe( res => answer);
         // if(answer) {
