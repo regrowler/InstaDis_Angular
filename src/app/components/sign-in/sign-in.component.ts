@@ -55,8 +55,7 @@ export class SignInComponent implements OnInit {
         this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
           .subscribe(
             response => {
-                console.log(response.id);
-                this.router.navigate(['/posts',response.id]);
+                this.router.navigate(['/posts',response.login]);
             },
             error => {
                 this.error = error;

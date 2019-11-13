@@ -21,7 +21,6 @@ export class AuthenticationService {
     login(login: string, password: string) : Observable<any>{
         return this.http.post<any>(this.url, {"login": login, "password": password})
                     .pipe(map(user =>{
-                        console.log(user);
                         localStorage.setItem('currentUser', JSON.stringify(user));
                         this.currentUserSubject.next(user);
                         return user;
@@ -29,6 +28,7 @@ export class AuthenticationService {
     }
 
     logout(): void {
+        console.log('for some reason im here');
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(false);
     }

@@ -1,20 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" routerLink="/">Angular Posts</a>
+        <a class="navbar-brand" [routerLink]="['/sign-in']">Angular Posts</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" *ngIf="currentUser">
+                <form [formGroup]="usernameFormGroup" (ngSubmit)="onSubmit()">
+                    <input type="text" autocomplete="username" formControlName="username" class="form-control"/>
+                </form>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['posts',currentUser.id]">My Posts</a>
+                    <a class="nav-link" [routerLink]="['/posts',currentUser.login]">My Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['posts-upload/new']">Upload a Post</a>
+                    <a class="nav-link" [routerLink]="['/posts-upload/new']">Upload a Post</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/sign-in']" (click)="logout()">Log out</a>
+                    <a class="nav-link" (click)="logout()">Log out</a>
                 </li>
             </ul>
         </div>

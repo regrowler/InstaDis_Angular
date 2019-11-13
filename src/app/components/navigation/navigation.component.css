@@ -1,0 +1,31 @@
+* {box-sizing: border-box;}
+form {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+    background: #A3D0C3;
+}
+input, button {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+input {
+    width: 100%;
+    height: 42px;
+    padding-left: 15px;
+}
+button {
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+button:before {
+    content: "\f002";
+    font-family: FontAwesome, fantasy;
+    font-size: 16px;
+    color: #F9F0DA;
+}

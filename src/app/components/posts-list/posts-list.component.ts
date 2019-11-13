@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router'
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
@@ -12,7 +12,8 @@ import {AuthenticationService} from "../../service/authorization.service";
 })
 export class PostsListComponent implements OnInit {
     posts: Post[] = [];
-    userID: number;
+    username: string;
+    forceToReload: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -20,17 +21,24 @@ export class PostsListComponent implements OnInit {
         private postService: PostService,
         private router: Router
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.forceToReload = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        })
     }
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-            this.userID = params['id'];
+            this.username = params['username'];
         });
-        console.log(this.userID);
-        this.postService.getPosts(this.userID)
+        this.postService.getPosts(this.username)
             .subscribe(
                 res => {
-                    console.log(res);
                     this.posts = res
                 },
                 err => console.log(err)
@@ -38,10 +46,10 @@ export class PostsListComponent implements OnInit {
     }
 
     selectedCard(id: number) {
-        console.log("auth: " + this.authService.currentUserValue.id);
-        console.log("userID: " + this.userID);
-        if(this.authService.currentUserValue.id == this.userID)
+        if(this.authService.currentUserValue.login == this.username) {
             this.router.navigate(['post-preview', id]);
+        }
     }
+    
 
 }

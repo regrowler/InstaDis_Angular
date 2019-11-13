@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
+import {AuthenticationService} from "../../service/authorization.service";
 
 @Component({
   selector: 'app-post-preview',
@@ -14,40 +15,42 @@ export class PostPreviewComponent implements OnInit {
   id: number;
   post: Post;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private postService: PostService,
-    private router: Router,
-  ) { }
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private authorizationService: AuthenticationService,
+        private postService: PostService,
+        private router: Router,
+    ) { }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.id = +params['id'];
-      this.postService.getPost(this.id)
-        .subscribe(
-          res => {
-            this.post = res;
-          },
-          err => console.log(err)
-        )
-    });
-  }
+    ngOnInit() {
+        this.activatedRoute.params.subscribe(params => {
+            this.id = +params['id'];
+            this.postService.getPost(this.authorizationService.currentUserValue.login,this.id)
+                .subscribe(res => {
+                    this.post = res;
+                    },
+                err => console.log(err)
+            )
+        });
+    }
 
-  deletePost(id: number) {
-    this.postService.deletePost(id)
-      .subscribe(res => {
-        console.log(res);
-        this.router.navigate(['/posts']);
-      })
-  }
+    //todo: change request
+    deletePost(id: number) {
+        this.postService.deletePost(id)
+            .subscribe(res => {
+                console.log(res);
+                // this.router.navigate(['/posts']);
+        })
+    }
 
-  updatePost(title: HTMLInputElement, description: HTMLInputElement): boolean {
-    this.postService.updatePost(this.post.id, title.value, description.value)
-      .subscribe(res => {
-        console.log(res);
-        this.router.navigate(['/posts']);
-      });
-    return false;
-  }
+    //todo: change request
+    updatePost(title: HTMLInputElement, description: HTMLInputElement): boolean {
+        this.postService.updatePost(this.post.id, title.value, description.value)
+            .subscribe(res => {
+                console.log(res);
+                // this.router.navigate(['/posts']);
+            });
+        return false;
+    }
 
 }

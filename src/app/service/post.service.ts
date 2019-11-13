@@ -20,22 +20,25 @@ export class PostService {
             "title": title,
             "user": user,
             "description": description,
-            "file": postSelected
+            "file": postSelected,
+            "date": new Date().toLocaleDateString()
         });
     }
 
-    getPosts(id: number): Observable<Post[]> {
-        return this.http.get<Post[]>(this.url + '/' + id);
+    getPosts(username: string): Observable<Post[]> {
+        return this.http.get<Post[]>(this.url + '/' + username);
     }
 
-    getPost(id: number): Observable<Post> {
-        return this.http.get<Post>(this.url + '/' + id);
+    getPost(username: string, id: number): Observable<Post> {
+        return this.http.get<Post>(this.url + '/' + username + '/' + id);
     }
 
+    //todo: change request
     deletePost(id: number): Observable<any> {
         return this.http.delete(this.url + '/' + id);
     }
 
+    //todo: change request
     updatePost(id: number, title: string, description: string): Observable<any> {
         return this.http.put(this.url + '/' + id, {title, description});
     }

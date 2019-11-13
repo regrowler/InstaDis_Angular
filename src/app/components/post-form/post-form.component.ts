@@ -42,7 +42,7 @@ export class PostFormComponent implements OnInit {
             .subscribe(
                 res => {
                     console.log(res);
-                    this.router.navigate(['/posts',this.user.id])
+                    this.router.navigate(['/posts',this.user.login])
                 },
                 err => console.log(err)
             );

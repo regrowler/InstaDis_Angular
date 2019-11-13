@@ -12,10 +12,12 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
+import { AngularFontAwesomeModule} from "angular-font-awesome";
 
 @NgModule({
    imports: [
     BrowserModule,
+    AngularFontAwesomeModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
