@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { AuthenticationService } from "../../service/authorization.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../service/user.service";
 
@@ -15,6 +15,7 @@ export class NavigationComponent implements OnInit {
     usernameFormGroup: FormGroup;
 
     constructor(private authService: AuthenticationService,
+                private activatedRoute: ActivatedRoute,
                 private userService: UserService,
                 private formBuilder: FormBuilder,
                 private router: Router)
@@ -26,6 +27,7 @@ export class NavigationComponent implements OnInit {
 
     ngOnInit() {
         this.authService.currentUser.subscribe(user => this.currentUser = user);
+        this.router.navigate([window.location.pathname]);
     }
 
     logout() {
@@ -35,11 +37,12 @@ export class NavigationComponent implements OnInit {
 
     onSubmit() {
         //todo: ask database if such user exists
-        
+
         // let answer;
         // this.userService.ifUserExists(this.usernameFormGroup.value.username).subscribe( res => answer);
         // if(answer) {
-        //     this.router.navigate(['/posts', this.usernameFormGroup.value.username]);
         // }
+        this.router.navigate(['/posts', this.usernameFormGroup.value.username]);
+
     }
 }

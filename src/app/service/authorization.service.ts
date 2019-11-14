@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {map} from "rxjs/operators";
 
@@ -7,11 +7,12 @@ import {map} from "rxjs/operators";
 export class AuthenticationService {
     private url: string = "http://localhost:8080/users/sign-in";
 
-    private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(sessionStorage.getItem('currentUser'));
+    private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     public currentUser = this.currentUserSubject.asObservable();
 
 
     constructor(private http: HttpClient) {
+        console.log(JSON.parse(localStorage.getItem('currentUser')));
     }
 
     get currentUserValue(): any{

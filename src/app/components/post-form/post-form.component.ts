@@ -41,7 +41,6 @@ export class PostFormComponent implements OnInit {
             .createPost(this.user,title.value, description.value, this.postSelected)
             .subscribe(
                 res => {
-                    console.log(res);
                     this.router.navigate(['/posts',this.user.login])
                 },
                 err => console.log(err)
