@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
-import {AuthenticationService} from "../../service/authorization.service";
+import { AuthenticationService } from "../../service/authorization.service";
+import {SubscriptionService} from "../../service/subscription.service";
 
 @Component({
     selector: 'app-posts-list',
@@ -14,11 +15,13 @@ export class PostsListComponent implements OnInit {
     posts: Post[] = [];
     username: string;
     forceToReload: any;
+    currentUserPage = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private authService: AuthenticationService,
         private postService: PostService,
+        private subscriptionService: SubscriptionService,
         private router: Router
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -36,6 +39,7 @@ export class PostsListComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.username = params['username'];
         });
+        this.currentUserPage = (this.authService.currentUserValue.login == this.username);
         this.postService.getPosts(this.username)
             .subscribe(
                 res => {
@@ -46,9 +50,14 @@ export class PostsListComponent implements OnInit {
     }
 
     selectedCard(id: number) {
-        if(this.authService.currentUserValue.login == this.username) {
+        if(this.currentUserPage) {
             this.router.navigate(['post-preview', id]);
         }
+    }
+
+    onSubmit(){
+        this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
+            .subscribe(response => console.log(response), error => console.log(error));
     }
     
 
