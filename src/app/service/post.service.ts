@@ -11,7 +11,6 @@ export class PostService {
     // todo: change url to http://localhost:8080/posts
     url = 'http://localhost:8080/posts';
 
-
     constructor(private http: HttpClient) {
     }
 
@@ -25,8 +24,8 @@ export class PostService {
         });
     }
 
-    getPosts(username: string): Observable<Post[]> {
-        return this.http.get<Post[]>(this.url + '/' + username);
+    getPosts(username: string, page: number): Observable<Post[]> {
+        return this.http.get<Post[]>(this.url + '/' + username + '/page/'+ page);
     }
 
     getPost(username: string, id: number): Observable<Post> {

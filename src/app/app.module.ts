@@ -21,7 +21,8 @@ import { AngularFontAwesomeModule} from "angular-font-awesome";
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
    ],
   declarations: [
     AppComponent,

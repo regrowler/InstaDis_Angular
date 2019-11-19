@@ -11,7 +11,7 @@
                     <input type="text" autocomplete="username" formControlName="username" class="form-control"/>
                 </form>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/posts',currentUser.login]">My Posts</a>
+                    <a class="nav-link" [routerLink]="['/posts',currentUser.login,'page',1]">My Posts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/posts-upload/new']">Upload a Post</a>
