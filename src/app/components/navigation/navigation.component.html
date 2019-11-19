@@ -7,11 +7,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" *ngIf="currentUser">
-                <form [formGroup]="usernameFormGroup" (ngSubmit)="onSubmit()">
-                    <input type="text" autocomplete="username" formControlName="username" class="form-control"/>
-                </form>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/posts',currentUser.login,'page',1]">My Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/subscribe', currentUser.login]">Subscription</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/posts-upload/new']">Upload a Post</a>

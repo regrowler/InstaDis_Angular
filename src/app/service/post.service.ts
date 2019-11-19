@@ -8,7 +8,6 @@ import {Observable, of} from "rxjs";
     providedIn: 'root'
 })
 export class PostService {
-    // todo: change url to http://localhost:8080/posts
     url = 'http://localhost:8080/posts';
 
     constructor(private http: HttpClient) {

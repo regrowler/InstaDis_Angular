@@ -29,7 +29,6 @@ export class AuthenticationService {
     }
 
     logout(): void {
-        console.log('for some reason im here');
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(false);
     }
