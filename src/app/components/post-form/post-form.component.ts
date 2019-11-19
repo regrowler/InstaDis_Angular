@@ -31,7 +31,7 @@ export class PostFormComponent implements OnInit {
             this.file = <File>event.target.files[0];
             // image preview
             const reader = new FileReader();
-            reader.onload = e => this.postSelected = reader.result;
+            reader.onload = () => this.postSelected = reader.result;
             reader.readAsDataURL(this.file);
         }
     }

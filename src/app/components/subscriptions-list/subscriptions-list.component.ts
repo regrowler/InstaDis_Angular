@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../interfaces/User";
 import {SubscriptionService} from "../../service/subscription.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-subscriptions-list',
@@ -14,6 +14,7 @@ export class SubscriptionsListComponent implements OnInit {
     selectedUser: User;
     username: string;
     constructor(private subscriptionService: SubscriptionService,
+                private router: Router,
                 private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
@@ -26,6 +27,7 @@ export class SubscriptionsListComponent implements OnInit {
 
     onSelect(user: User): void{
         this.selectedUser = user;
+        this.router.navigate(['/posts',this.selectedUser.login]);
     }
 
 }

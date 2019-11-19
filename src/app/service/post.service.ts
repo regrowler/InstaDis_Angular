@@ -19,7 +19,6 @@ export class PostService {
             "user": user,
             "description": description,
             "file": postSelected,
-            "date": new Date().toLocaleDateString()
         });
     }
 
