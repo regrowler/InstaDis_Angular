@@ -13,6 +13,7 @@ import { PostsListComponent } from './components/posts-list/posts-list.component
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 import { AngularFontAwesomeModule} from "angular-font-awesome";
+import { SubscriptionsListComponent } from './components/subscriptions-list/subscriptions-list.component';
 
 @NgModule({
    imports: [
@@ -30,7 +31,8 @@ import { AngularFontAwesomeModule} from "angular-font-awesome";
     NavigationComponent,
     PostsListComponent,
     PostFormComponent,
-    PostPreviewComponent
+    PostPreviewComponent,
+    SubscriptionsListComponent
   ],
    providers: [
    ],
