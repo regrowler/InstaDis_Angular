@@ -22,7 +22,8 @@ import { SubscriptionsListComponent } from './components/subscriptions-list/subs
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
    ],
   declarations: [
     AppComponent,

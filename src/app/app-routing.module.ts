@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'posts/:username', component: PostsListComponent },
+  { path: 'posts/:username/page/:numpage', component: PostsListComponent },
   { path: 'posts-upload/new', component: PostFormComponent },
   { path: 'post-preview/:id', component: PostPreviewComponent },
   { path: 'subscribe/:username', component: SubscriptionsListComponent },

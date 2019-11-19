@@ -14,3 +14,15 @@
         </div>
     </div>
 </div>
+
+<div class="paging-nav">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="#" (click)="goToEndPages(-1,$event)">Start &nbsp;</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="getAnotherPage(-1,$event)">Prev</a></li>
+        <li class="nav-item" *ngFor="let p of collectionSize; let i = index">
+            <a class="nav-link" href="#" (click)="setPage(i+1, $event)">{{i+1}}</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="getAnotherPage(1,$event)">Next &nbsp;</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" (click)="goToEndPages(1,$event)">End</a></li>
+    </ul>
+</div>

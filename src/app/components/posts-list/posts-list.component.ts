@@ -11,11 +11,16 @@ import {SubscriptionService} from "../../service/subscription.service";
     templateUrl: './posts-list.component.html',
     styleUrls: ['./posts-list.component.css']
 })
+
+
 export class PostsListComponent implements OnInit {
     posts: Post[] = [];
     username: string;
     forceToReload: any;
     currentUserPage = false;
+  
+    page: number = 1;
+    collectionSize: Array<number>;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -40,13 +45,19 @@ export class PostsListComponent implements OnInit {
             this.username = params['username'];
         });
         this.currentUserPage = (this.authService.currentUserValue.login == this.username);
-        this.postService.getPosts(this.username)
-            .subscribe(
-                res => {
-                    this.posts = res
-                },
-                err => console.log(err)
-            )
+        this.getPosts();
+    }
+
+
+    getPosts() {
+        this.postService.getPosts(this.username, this.page)
+        .subscribe(
+            res => {
+                this.posts = res['content'],
+                this.collectionSize = new Array(res['totalPages'])
+            },
+            err => console.log(err)
+        );
     }
 
     selectedCard(id: number) {
@@ -55,10 +66,32 @@ export class PostsListComponent implements OnInit {
         }
     }
 
+    setPage(i,event:any){
+        event.preventDefault();
+        this.page = i;
+        this.getPosts();
+    }
     onSubmit(){
         this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
     }
     
+    getAnotherPage(flag,event:any){
+        event.preventDefault();
+        if(flag == 1 || flag == -1){
+        if(flag == -1 && this.page != 1) this.page = this.page - 1;
+        if(flag ==  1 && (this.page+1)<=this.collectionSize.length)  this.page = this.page + 1;
+        this.getPosts();
+    }
+    }
+
+    goToEndPages(flag,event:any){
+        event.preventDefault();
+        if(flag == 1 || flag == -1){
+        if(flag == -1) this.page = 1;
+        if(flag ==  1)  this.page = this.collectionSize.length;
+        this.getPosts();
+    }
+    }
 
 }

@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" *ngIf="currentUser">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/posts',currentUser.login]">My Posts</a>
+                    <a class="nav-link" [routerLink]="['/posts',currentUser.login,'page',1]">My Posts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/subscribe', currentUser.login]">Subscription</a>
