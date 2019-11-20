@@ -6,26 +6,26 @@ import { Post } from '../../interfaces/Post'
 import {AuthenticationService} from "../../service/authorization.service";
 
 @Component({
-  selector: 'app-post-preview',
-  templateUrl: './post-preview.component.html',
-  styleUrls: ['./post-preview.component.css']
+    selector: 'app-post-preview',
+    templateUrl: './post-preview.component.html',
+    styleUrls: ['./post-preview.component.css']
 })
 export class PostPreviewComponent implements OnInit {
 
-  id: number;
-  post: Post;
+    post: Post;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private authorizationService: AuthenticationService,
         private postService: PostService,
         private router: Router,
-    ) { }
+    ) {
+
+    }
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-            this.id = +params['id'];
-            this.postService.getPost(this.authorizationService.currentUserValue.login,this.id)
+            this.postService.getPost(this.authorizationService.currentUserValue.login,+params['id'])
                 .subscribe(res => {
                     this.post = res;
                     },
@@ -34,21 +34,17 @@ export class PostPreviewComponent implements OnInit {
         });
     }
 
-    //todo: change request
-    deletePost(id: number) {
-        this.postService.deletePost(id)
+    deletePost() {
+        this.postService.deletePost(this.post.id)
             .subscribe(res => {
-                console.log(res);
-                // this.router.navigate(['/posts']);
+                this.router.navigate(['/posts',this.authorizationService.currentUserValue.login]);
         })
     }
 
-    //todo: change request
     updatePost(title: HTMLInputElement, description: HTMLInputElement): boolean {
         this.postService.updatePost(this.post.id, title.value, description.value)
             .subscribe(res => {
-                console.log(res);
-                // this.router.navigate(['/posts']);
+                this.router.navigate(['/posts',this.authorizationService.currentUserValue.login]);
             });
         return false;
     }

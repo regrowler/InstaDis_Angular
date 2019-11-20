@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { PostService } from '../../service/post.service'
 import {AuthenticationService} from "../../service/authorization.service";
+import {User} from "../../interfaces/User";
 
 interface HtmlInputEvent extends Event {
     target: HTMLInputElement & EventTarget;
@@ -16,7 +17,7 @@ export class PostFormComponent implements OnInit {
 
     postSelected: string | ArrayBuffer;
     file: File;
-    user: any;
+    user: User;
 
     constructor(private postService: PostService,
                 private router: Router,
