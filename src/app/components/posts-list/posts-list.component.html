@@ -1,20 +1,23 @@
-<div class="row" *ngIf="!currentUserPage">
-    <button class="btn btn-primary" (click)="onSubmit()">Subscribe</button>
+<div class="row" *ngIf="!userPage">
+    <button class="btn btn-primary" *ngIf="showButton" (click)="onSubmit()">Subscribe</button>
+    <p *ngIf="!showButton">You are subscribed to {{this.username}}</p>
 </div>
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let postView of postViews">
-        <div class="card card-deck" (click)="selectedCard(postView.post.id)">
+        <div class="card card-deck">
             <div class="card-header text-center">
                 {{postView.post.title}}
             </div>
-            <img [src]="postView.post.image" class="img-card-top w-100">
+            <img (click)="selectedCard(postView.post.id)" [src]="postView.post.image" class="img-card-top w-100">
             <div class="card-body">
                 <p>{{postView.post.description}}</p>
+                <p>Likes: {{postView.like}}</p>
+                <p>Dislike: {{postView.dislike}}</p>
             </div>
-        </div>
-        <div>
-            <button class="btn btn-primary" (click)="like(postView.post.id, true)">Likes: {{postView.like}}</button>
-            <button class="btn btn-primary" (click)="like(postView.post.id, false)">Dislikes: {{postView.dislike}}</button>
+            <div *ngIf="this.authService.isLoggedIn()">
+                <button class="btn btn-primary" (click)="like(postView.post.id, true)">Like</button>
+                <button class="btn btn-primary" (click)="like(postView.post.id, false)">Dislike</button>
+            </div>
         </div>
     </div>
 
