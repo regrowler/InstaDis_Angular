@@ -1,0 +1,15 @@
+<div class="card card-deck">
+  <div class="card-header text-center">
+    {{post.post.title}}
+  </div>
+  <img (click)="selectedCard(post.post.id)" [src]="post.post.image" class="img-card-top w-100">
+  <div class="card-body">
+    <p>{{post.post.description}}</p>
+    <p>Likes: {{post.like}}</p>
+    <p>Dislike: {{post.dislike}}</p>
+    <div *ngIf="this.authService.isLoggedIn()">
+      <button class="btn btn-primary" (click)="like(post.post.id, true)">Like</button>
+      <button class="btn btn-primary" (click)="like(post.post.id, false)">Dislike</button>
+    </div>
+  </div>
+</div>

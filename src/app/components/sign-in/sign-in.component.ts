@@ -25,7 +25,6 @@ export class SignInComponent implements OnInit {
       private formBuilder: FormBuilder,
       private router: Router,
       private authenticationService: AuthenticationService,
-      private tokenService: TokenService
     ) {
     }
 
@@ -58,7 +57,7 @@ export class SignInComponent implements OnInit {
                 this.router.navigate(['/posts',response.login]);
             },
             error => {
-                this.error = error;
+                this.error = error.error.message;
                 this.loading = false;
             });
     }

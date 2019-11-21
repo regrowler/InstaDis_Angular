@@ -14,6 +14,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 import { AngularFontAwesomeModule} from "angular-font-awesome";
 import { SubscriptionsListComponent } from './components/subscriptions-list/subscriptions-list.component';
+import { PostViewComponent } from "./components/post-view/post-view.component";
 
 @NgModule({
    imports: [
@@ -33,7 +34,8 @@ import { SubscriptionsListComponent } from './components/subscriptions-list/subs
     PostsListComponent,
     PostFormComponent,
     PostPreviewComponent,
-    SubscriptionsListComponent
+    SubscriptionsListComponent,
+    PostViewComponent
   ],
    providers: [
    ],
