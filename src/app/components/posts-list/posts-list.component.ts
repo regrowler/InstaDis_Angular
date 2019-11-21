@@ -19,7 +19,7 @@ export class PostsListComponent implements OnInit {
     postViews: PostView [] = [];
     username: string;
     forceToReload: any;
-    currentUserPage = true;
+    showButton = false;
   
     page: number = 1;
     collectionSize: Array<number>;
@@ -48,7 +48,12 @@ export class PostsListComponent implements OnInit {
             this.username = params['username'];
         });
         if(this.authService.currentUserValue){
-            this.currentUserPage = (this.authService.currentUserValue.login == this.username);
+            if(this.authService.currentUserValue.login != this.username){
+                this.subscriptionService.isSubscribed(this.authService.currentUserValue.login, this.username)
+                    .subscribe( response => {
+                        this.showButton = !response;
+                    })
+            }
         }
         this.getPosts();
     }
@@ -69,20 +74,20 @@ export class PostsListComponent implements OnInit {
     onSubmit(){
         this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
+        this.router.navigate(['/posts',this.username]);
     }
 
     like(id: number, isLike: boolean){
         this.likeService.like(this.authService.currentUserValue.login,id,isLike)
             .subscribe(like => {
-
+                    this.router.navigate(['/posts',this.username]);
             },
                 error => console.log(error));
-        this.router.navigate(['/posts',this.username]);
     }
 
 
     selectedCard(id: number) {
-        if(this.currentUserPage) {
+        if(this.showButton) {
             this.router.navigate(['post-preview', id]);
         }
     }
