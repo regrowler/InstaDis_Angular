@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
-import {Post} from '../interfaces/Post'
-import {Observable, of} from "rxjs";
+import { Post } from '../interfaces/Post'
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -30,14 +30,13 @@ export class PostService {
         return this.http.get<Post>(this.url + '/' + username + '/' + id);
     }
 
-    //todo: change request
     deletePost(id: number): Observable<any> {
         return this.http.delete(this.url + '/' + id);
     }
 
     //todo: change request
     updatePost(id: number, title: string, description: string): Observable<any> {
-        return this.http.put(this.url + '/' + id, {title, description});
+        return this.http.put(this.url, {id, title, description});
     }
 }
 

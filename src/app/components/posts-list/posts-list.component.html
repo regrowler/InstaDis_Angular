@@ -2,20 +2,26 @@
     <button class="btn btn-primary" (click)="onSubmit()">Subscribe</button>
 </div>
 <div class="row">
-    <div class="col-md-4 p-4" *ngFor="let post of posts">
-        <div class="card card-deck" (click)="selectedCard(post.id)">
+    <div class="col-md-4 p-4" *ngFor="let postView of postViews">
+        <div class="card card-deck" (click)="selectedCard(postView.post.id)">
             <div class="card-header text-center">
-                {{post.title}}
+                {{postView.post.title}}
             </div>
-            <img [src]="post.image" class="img-card-top w-100">
+            <img [src]="postView.post.image" class="img-card-top w-100">
             <div class="card-body">
-                <p>{{post.description}}</p>
+                <p>{{postView.post.description}}</p>
             </div>
         </div>
+        <div>
+            <button class="btn btn-primary" (click)="like(postView.post.id, true)">Likes: {{postView.like}}</button>
+            <button class="btn btn-primary" (click)="like(postView.post.id, false)">Dislikes: {{postView.dislike}}</button>
+        </div>
     </div>
+
 </div>
 
-<div class="paging-nav">
+
+<div class="paging-nav" *ngIf="postViews.length > 0">
     <ul class="nav nav-pills">
         <li class="nav-item"><a class="nav-link" href="#" (click)="goToEndPages(-1,$event)">Start</a></li>
         <li class="nav-item"><a class="nav-link" href="#" (click)="getAnotherPage(-1,$event)">Prev</a></li>

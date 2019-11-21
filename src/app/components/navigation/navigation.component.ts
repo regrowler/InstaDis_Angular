@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { AuthenticationService } from "../../service/authorization.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../../interfaces/User";
 
 @Component({
     selector: 'app-navigation',
@@ -9,7 +10,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class NavigationComponent implements OnInit {
 
-    currentUser: any;
+    currentUser: User;
 
     constructor(private authService: AuthenticationService,
                 private activatedRoute: ActivatedRoute,

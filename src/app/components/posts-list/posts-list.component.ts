@@ -5,6 +5,8 @@ import { PostService } from '../../service/post.service'
 import { Post } from '../../interfaces/Post'
 import { AuthenticationService } from "../../service/authorization.service";
 import {SubscriptionService} from "../../service/subscription.service";
+import {PostView} from "../../interfaces/PostView";
+import {LikeService} from "../../service/like.service";
 
 @Component({
     selector: 'app-posts-list',
@@ -14,7 +16,7 @@ import {SubscriptionService} from "../../service/subscription.service";
 
 
 export class PostsListComponent implements OnInit {
-    posts: Post[] = [];
+    postViews: PostView [] = [];
     username: string;
     forceToReload: any;
     currentUserPage = true;
@@ -22,11 +24,13 @@ export class PostsListComponent implements OnInit {
     page: number = 1;
     collectionSize: Array<number>;
 
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private authService: AuthenticationService,
         private postService: PostService,
         private subscriptionService: SubscriptionService,
+        private likeService: LikeService,
         private router: Router
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -34,7 +38,6 @@ export class PostsListComponent implements OnInit {
         };
         this.forceToReload = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                // Trick the Router into believing it's last link wasn't previously loaded
                 this.router.navigated = false;
             }
         })
@@ -53,19 +56,30 @@ export class PostsListComponent implements OnInit {
 
     getPosts() {
         this.postService.getPosts(this.username, this.page)
-        .subscribe(
-            res => {
-                this.posts = res['content'];
-                this.collectionSize = new Array(res['totalPages'])
-            },
-            err => console.log(err)
-        );
+            .subscribe(
+                res => {
+                    this.likeService.getPostView(res['content'])
+                        .subscribe(views => this.postViews = views);
+                    this.collectionSize = new Array(res['totalPages'])
+                },
+                err => console.log(err)
+            );
     }
 
     onSubmit(){
         this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
     }
+
+    like(id: number, isLike: boolean){
+        this.likeService.like(this.authService.currentUserValue.login,id,isLike)
+            .subscribe(like => {
+
+            },
+                error => console.log(error));
+        this.router.navigate(['/posts',this.username]);
+    }
+
 
     selectedCard(id: number) {
         if(this.currentUserPage) {
@@ -84,7 +98,7 @@ export class PostsListComponent implements OnInit {
         if(flag == 1 || flag == -1)
         {
             if(flag == -1 && this.page != 1) this.page = this.page - 1;
-            if(flag ==  1 && (this.page+1)<=this.collectionSize.length)  this.page = this.page + 1;
+            if(flag ==  1 && (this.page+1)  <=this.collectionSize.length)  this.page = this.page + 1;
             this.getPosts();
         }
     }
