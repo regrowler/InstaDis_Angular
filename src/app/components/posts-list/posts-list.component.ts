@@ -19,7 +19,8 @@ export class PostsListComponent implements OnInit {
     postViews: PostView [] = [];
     username: string;
     forceToReload: any;
-    showButton = false;
+    showButton: boolean;
+    userPage: boolean;
   
     page: number = 1;
     collectionSize: Array<number>;
@@ -47,12 +48,16 @@ export class PostsListComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.username = params['username'];
         });
-        if(this.authService.currentUserValue){
+        if(this.authService.isLoggedIn()){
             if(this.authService.currentUserValue.login != this.username){
+                this.userPage = false;
                 this.subscriptionService.isSubscribed(this.authService.currentUserValue.login, this.username)
                     .subscribe( response => {
                         this.showButton = !response;
                     })
+            }
+            else{
+                this.userPage = true;
             }
         }
         this.getPosts();

@@ -28,6 +28,11 @@ export class AuthenticationService {
                     }));
     }
 
+    isLoggedIn() : boolean{
+        return !!this.currentUserValue;
+
+    }
+
     logout(): void {
         sessionStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
