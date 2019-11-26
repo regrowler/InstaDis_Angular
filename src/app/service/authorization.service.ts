@@ -15,7 +15,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
     }
 
-    get currentUserValue(): any{
+    get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
 

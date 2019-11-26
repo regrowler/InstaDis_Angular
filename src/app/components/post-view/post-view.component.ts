@@ -28,8 +28,28 @@ export class PostViewComponent implements OnInit {
     like(id: number, isLike: boolean) {
         this.likeService.like(this.authService.currentUserValue.login, id, isLike)
             .subscribe(like => {
-                    this.router.navigate(['/posts', this.username]);
-                },
+                   if(like == 0){
+                       this.post.like++;
+                   }
+                    if(like == 1){
+                        this.post.dislike++;
+                    }
+                    if(like == 2){
+                        this.post.like--;
+                    }
+                    if(like == 3){
+                        this.post.dislike--;
+                    }
+                    if(like == 4){
+                        this.post.like++;
+                        this.post.dislike--;
+                    }
+                    if(like == 5){
+                        this.post.like--;
+                        this.post.dislike++;
+                    }
+                }
+                ,
                 error => this.error = error.error.message)
     }
 
