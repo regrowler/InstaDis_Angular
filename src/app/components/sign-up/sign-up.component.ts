@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from "rxjs/operators";
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { SignUpService } from "../../service/sign-up.service";
 import { Router } from "@angular/router";
@@ -70,7 +69,7 @@ export class SignUpComponent implements OnInit {
                 this.router.navigate(['/sign-in'], { queryParams: { signedUp: true }});
             },
             error => {
-                this.error = error;
+                this.error = error.error.message;
                 this.loading = false;
             });
     }

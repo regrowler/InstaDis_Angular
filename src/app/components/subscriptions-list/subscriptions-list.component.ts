@@ -13,6 +13,7 @@ export class SubscriptionsListComponent implements OnInit {
     users: User[] = [];
     selectedUser: User;
     username: string;
+    error: string;
     constructor(private subscriptionService: SubscriptionService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute) { }
@@ -22,7 +23,7 @@ export class SubscriptionsListComponent implements OnInit {
             this.username = params['username'];
         });
         this.subscriptionService.getSubscriptionList(this.username)
-            .subscribe(users => this.users = users, error => console.log(error));
+            .subscribe(users => this.users = users, error => this.error = error.error.message);
     }
 
     onSelect(user: User): void{

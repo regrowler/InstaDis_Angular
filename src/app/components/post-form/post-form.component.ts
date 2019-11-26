@@ -18,6 +18,7 @@ export class PostFormComponent implements OnInit {
     postSelected: string | ArrayBuffer;
     file: File;
     user: User;
+    error: string;
 
     constructor(private postService: PostService,
                 private router: Router,
@@ -44,7 +45,7 @@ export class PostFormComponent implements OnInit {
                 res => {
                     this.router.navigate(['/posts',this.user.login])
                 },
-                err => console.log(err)
+                err => this.error = err.error.message
             );
         return false;
     }

@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 
 import { PostService } from '../../service/post.service'
-import { Post } from '../../interfaces/Post'
 import { AuthenticationService } from "../../service/authorization.service";
-import {SubscriptionService} from "../../service/subscription.service";
-import {PostView} from "../../interfaces/PostView";
-import {LikeService} from "../../service/like.service";
+import { SubscriptionService } from "../../service/subscription.service";
+import { PostView } from "../../interfaces/PostView";
+import { LikeService } from "../../service/like.service";
 
 @Component({
     selector: 'app-posts-list',
@@ -21,7 +20,8 @@ export class PostsListComponent implements OnInit {
     forceToReload: any;
     showButton: boolean;
     userPage: boolean;
-  
+    error: string;
+
     page: number = 1;
     collectionSize: Array<number>;
 
@@ -72,7 +72,7 @@ export class PostsListComponent implements OnInit {
                         .subscribe(views => this.postViews = views);
                     this.collectionSize = new Array(res['totalPages'])
                 },
-                err => console.log(err)
+                err => this.error = err.error.message
             );
     }
 
@@ -80,21 +80,6 @@ export class PostsListComponent implements OnInit {
         this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
         this.router.navigate(['/posts',this.username]);
-    }
-
-    like(id: number, isLike: boolean){
-        this.likeService.like(this.authService.currentUserValue.login,id,isLike)
-            .subscribe(like => {
-                    this.router.navigate(['/posts',this.username]);
-            },
-                error => console.log(error));
-    }
-
-
-    selectedCard(id: number) {
-        if(this.showButton) {
-            this.router.navigate(['post-preview', id]);
-        }
     }
 
     setPage(i,event:any){

@@ -13,6 +13,7 @@ import {AuthenticationService} from "../../service/authorization.service";
 export class PostPreviewComponent implements OnInit {
 
     post: Post;
+    error: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -45,7 +46,8 @@ export class PostPreviewComponent implements OnInit {
         this.postService.updatePost(this.post.id, title.value, description.value)
             .subscribe(res => {
                 this.router.navigate(['/posts',this.authorizationService.currentUserValue.login]);
-            });
+            },
+                error => this.error = error.error.message);
         return false;
     }
 
