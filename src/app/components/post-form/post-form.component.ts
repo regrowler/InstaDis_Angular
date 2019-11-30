@@ -40,7 +40,7 @@ export class PostFormComponent implements OnInit {
 
     uploadPost(title: HTMLInputElement, description: HTMLTextAreaElement) {
         this.postService
-            .createPost(this.user,title.value, description.value, this.postSelected)
+            .createPost(this.authenticationService.currentUserValue.token, this.user,title.value, description.value, this.postSelected)
             .subscribe(
                 res => {
                     this.router.navigate(['/posts',this.user.login])
