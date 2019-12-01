@@ -19,10 +19,10 @@ export class PostService {
         });
     }
 
-    createPost(token: string, user: any, title: string, description: string, postSelected: string | ArrayBuffer): Observable<any> {
+    createPost(token: string, title: string, description: string, postSelected: string | ArrayBuffer): Observable<any> {
         return this.http.post<any>(this.url, {
             "title": title,
-            "user": user,
+            "token": token,
             "description": description,
             "file": postSelected,
         },
@@ -35,16 +35,16 @@ export class PostService {
         return this.http.get<Post[]>(this.url + '/' + username + '/page/'+ page, {headers: this.createHeader(token)});
     }
 
-    getPost(token: string, username: string, id: number): Observable<Post> {
-        return this.http.get<Post>(this.url + '/' + username + '/' + id, {headers: this.createHeader(token)});
+    getPost(token: string, id: number): Observable<Post> {
+        return this.http.get<Post>(this.url + '/' + token + '/' + id, {headers: this.createHeader(token)});
     }
 
     deletePost(token: string, id: number): Observable<any> {
-        return this.http.delete(this.url + '/' + id, {headers: this.createHeader(token)});
+        return this.http.delete(this.url + '/' + token + '/' + id, {headers: this.createHeader(token)});
     }
 
     updatePost(token: string, id: number, title: string, description: string): Observable<any> {
-        return this.http.put(this.url, {id, title, description}, {headers: this.createHeader(token)});
+        return this.http.put(this.url, {id, token, title, description}, {headers: this.createHeader(token)});
     }
 }
 

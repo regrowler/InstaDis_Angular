@@ -26,7 +26,7 @@ export class PostPreviewComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-            this.postService.getPost(this.authorizationService.currentUserValue.token, this.authorizationService.currentUserValue.login,+params['id'])
+            this.postService.getPost(this.authorizationService.currentUserValue.token, +params['id'])
                 .subscribe(res => {
                     this.post = res;
                     },
