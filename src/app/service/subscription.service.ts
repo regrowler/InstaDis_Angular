@@ -14,9 +14,9 @@ export class SubscriptionService {
     }
 
 
-    makeSubscription(token: string, user: string, subscribe: string): Observable<any>{
+    makeSubscription(token: string, subscribe: string): Observable<any>{
     return this.http.post<any>(this.url, {
-            "username": user,
+            "token": token,
             "subscribe": subscribe,
         },{headers: this.createHeader(token)});
     }
@@ -26,9 +26,9 @@ export class SubscriptionService {
     }
 
 
-    isSubscribed(token: string, user: string, subscribe: string): Observable<Boolean>{
+    isSubscribed(token: string, subscribe: string): Observable<Boolean>{
         return this.http.post<Boolean>(this.url + this.is,{
-            "username": user,
+            "token": token,
             "subscribe": subscribe,
         },{headers: this.createHeader(token)})
     }

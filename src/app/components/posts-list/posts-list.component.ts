@@ -54,7 +54,7 @@ export class PostsListComponent implements OnInit {
         if(this.authService.isLoggedIn()){
             if(this.authService.currentUserValue.login != this.username){
                 this.userPage = false;
-                this.subscriptionService.isSubscribed(this.currentUser.token, this.currentUser.login, this.username)
+                this.subscriptionService.isSubscribed(this.currentUser.token, this.username)
                     .subscribe( response => {
                         this.showButton = !response;
                     })
@@ -80,9 +80,10 @@ export class PostsListComponent implements OnInit {
     }
 
     onSubmit(){
-        this.subscriptionService.makeSubscription(this.currentUser.token, this.currentUser.login, this.username)
+        this.subscriptionService.makeSubscription(this.currentUser.token, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
-        this.router.navigate(['/posts',this.username]);
+        this.showButton = false;
+        // this.router.navigate(['/posts',this.username]);
     }
 
     setPage(i,event:any){
