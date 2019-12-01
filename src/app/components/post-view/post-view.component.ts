@@ -26,7 +26,7 @@ export class PostViewComponent implements OnInit {
     }
 
     like(id: number, isLike: boolean) {
-        this.likeService.like(this.authService.currentUserValue.token, this.authService.currentUserValue.login, id, isLike)
+        this.likeService.like(this.authService.currentUserValue.token, id, isLike)
             .subscribe(like => {
                    if(like == 0){
                        this.post.like++;
