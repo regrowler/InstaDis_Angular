@@ -6,7 +6,7 @@ import { User } from "../interfaces/User";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private url: string = "http://localhost:8080/users/sign-in";
+    private url: string = "http://localhost:8080/token/sign-in";
 
     private currentUserSubject: BehaviorSubject<User> = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('currentUser')));
     public currentUser = this.currentUserSubject.asObservable();

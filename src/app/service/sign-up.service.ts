@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
     providedIn: 'root'
 })
 export class SignUpService {
-    url: string = "http://localhost:8080/users/sign-up";
+    url: string = "http://localhost:8080/token/sign-up";
     constructor(private http: HttpClient) { }
 
     signUp(login: string, password: string) : Observable<any> {

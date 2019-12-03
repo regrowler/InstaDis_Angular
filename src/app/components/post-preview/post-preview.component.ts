@@ -26,7 +26,7 @@ export class PostPreviewComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(params => {
-            this.postService.getPost(this.authorizationService.currentUserValue.login,+params['id'])
+            this.postService.getPost(this.authorizationService.currentUserValue.token, +params['id'])
                 .subscribe(res => {
                     this.post = res;
                     },
@@ -36,14 +36,14 @@ export class PostPreviewComponent implements OnInit {
     }
 
     deletePost() {
-        this.postService.deletePost(this.post.id)
+        this.postService.deletePost(this.authorizationService.currentUserValue.token, this.post.id)
             .subscribe(res => {
                 this.router.navigate(['/posts',this.authorizationService.currentUserValue.login]);
         })
     }
 
     updatePost(title: HTMLInputElement, description: HTMLInputElement): boolean {
-        this.postService.updatePost(this.post.id, title.value, description.value)
+        this.postService.updatePost(this.authorizationService.currentUserValue.token, this.post.id, title.value, description.value)
             .subscribe(res => {
                 this.router.navigate(['/posts',this.authorizationService.currentUserValue.login]);
             },

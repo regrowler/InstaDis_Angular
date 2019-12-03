@@ -6,6 +6,7 @@ import { AuthenticationService } from "../../service/authorization.service";
 import { SubscriptionService } from "../../service/subscription.service";
 import { PostView } from "../../interfaces/PostView";
 import { LikeService } from "../../service/like.service";
+import {User} from "../../interfaces/User";
 
 @Component({
     selector: 'app-posts-list',
@@ -21,6 +22,7 @@ export class PostsListComponent implements OnInit {
     showButton: boolean;
     userPage: boolean;
     error: string;
+    currentUser: User;
 
     page: number = 1;
     collectionSize: Array<number>;
@@ -45,13 +47,14 @@ export class PostsListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentUser = this.authService.currentUserValue;
         this.activatedRoute.params.subscribe(params => {
             this.username = params['username'];
         });
         if(this.authService.isLoggedIn()){
             if(this.authService.currentUserValue.login != this.username){
                 this.userPage = false;
-                this.subscriptionService.isSubscribed(this.authService.currentUserValue.login, this.username)
+                this.subscriptionService.isSubscribed(this.currentUser.token, this.username)
                     .subscribe( response => {
                         this.showButton = !response;
                     })
@@ -65,7 +68,7 @@ export class PostsListComponent implements OnInit {
 
 
     getPosts() {
-        this.postService.getPosts(this.username, this.page)
+        this.postService.getPosts(this.currentUser.token, this.username, this.page)
             .subscribe(
                 res => {
                     this.likeService.getPostView(res['content'])
@@ -77,9 +80,10 @@ export class PostsListComponent implements OnInit {
     }
 
     onSubmit(){
-        this.subscriptionService.makeSubscription(this.authService.currentUserValue.login, this.username)
+        this.subscriptionService.makeSubscription(this.currentUser.token, this.username)
             .subscribe(response => console.log(response), error => console.log(error));
-        this.router.navigate(['/posts',this.username]);
+        this.showButton = false;
+        // this.router.navigate(['/posts',this.username]);
     }
 
     setPage(i,event:any){

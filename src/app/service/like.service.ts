@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Post } from "../interfaces/Post";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable, of} from "rxjs";
 import { PostView } from "../interfaces/PostView";
-import {Like} from "../interfaces/Like";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LikeService {
 
-    url = 'http://localhost:8080/like';
+    url = 'http://localhost:8080/api/likes';
     constructor(private http: HttpClient) { }
 
     getPostView(posts: any[]): Observable<PostView[]>{
@@ -33,7 +31,13 @@ export class LikeService {
         return of(postViews);
     }
 
-    like(username: string, postId: number, isLike: boolean): Observable<any> {
-        return this.http.post<any>(this.url,{username,postId,isLike});
+    createHeader(token: string): HttpHeaders{
+        return  new HttpHeaders({
+            'authorization' : token,
+        });
+    }
+
+    like(token: string, postId: number, isLike: boolean): Observable<any> {
+        return this.http.post<any>(this.url,{token,postId,isLike}, {headers: this.createHeader(token)});
     }
 }

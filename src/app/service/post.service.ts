@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 
 import { Post } from '../interfaces/Post'
 import { Observable } from "rxjs";
@@ -8,35 +8,43 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class PostService {
-    url = 'http://localhost:8080/posts';
+    url = 'http://localhost:8080/api/posts';
 
     constructor(private http: HttpClient) {
     }
 
-    createPost(user: any, title: string, description: string, postSelected: string | ArrayBuffer): Observable<any> {
-        return this.http.post<any>(this.url, {
-            "title": title,
-            "user": user,
-            "description": description,
-            "file": postSelected,
+    createHeader(token: string): HttpHeaders{
+        return  new HttpHeaders({
+            'authorization' : token,
         });
     }
 
-    getPosts(username: string, page: number): Observable<Post[]> {
-        return this.http.get<Post[]>(this.url + '/' + username + '/page/'+ page);
+    createPost(token: string, title: string, description: string, postSelected: string | ArrayBuffer): Observable<any> {
+        return this.http.post<any>(this.url, {
+            "title": title,
+            "token": token,
+            "description": description,
+            "file": postSelected,
+        },
+            {headers: this.createHeader(token)});
     }
 
-    getPost(username: string, id: number): Observable<Post> {
-        return this.http.get<Post>(this.url + '/' + username + '/' + id);
+
+
+    getPosts(token: string, username: string, page: number): Observable<Post[]> {
+        return this.http.get<Post[]>(this.url + '/' + username + '/page/'+ page, {headers: this.createHeader(token)});
     }
 
-    deletePost(id: number): Observable<any> {
-        return this.http.delete(this.url + '/' + id);
+    getPost(token: string, id: number): Observable<Post> {
+        return this.http.get<Post>(this.url + '/' + token + '/' + id, {headers: this.createHeader(token)});
     }
 
-    //todo: change request
-    updatePost(id: number, title: string, description: string): Observable<any> {
-        return this.http.put(this.url, {id, title, description});
+    deletePost(token: string, id: number): Observable<any> {
+        return this.http.delete(this.url + '/' + token + '/' + id, {headers: this.createHeader(token)});
+    }
+
+    updatePost(token: string, id: number, title: string, description: string): Observable<any> {
+        return this.http.put(this.url, {id, token, title, description}, {headers: this.createHeader(token)});
     }
 }
 

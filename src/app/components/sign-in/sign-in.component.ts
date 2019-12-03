@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../service/authorization.service";
 import { Router } from "@angular/router";
-import { TokenService } from "../../service/token.service";
 
 @Component({
     selector: 'app-login',
@@ -54,6 +53,7 @@ export class SignInComponent implements OnInit {
         this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
           .subscribe(
             response => {
+                console.log(response);
                 this.router.navigate(['/posts',response.login]);
             },
             error => {

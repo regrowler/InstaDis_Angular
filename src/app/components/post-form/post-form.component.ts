@@ -17,7 +17,6 @@ export class PostFormComponent implements OnInit {
 
     postSelected: string | ArrayBuffer;
     file: File;
-    user: User;
     error: string;
 
     constructor(private postService: PostService,
@@ -25,7 +24,6 @@ export class PostFormComponent implements OnInit {
                 private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
-        this.user = this.authenticationService.currentUserValue;
     }
 
     onPostSelected(event: HtmlInputEvent): void {
@@ -40,10 +38,10 @@ export class PostFormComponent implements OnInit {
 
     uploadPost(title: HTMLInputElement, description: HTMLTextAreaElement) {
         this.postService
-            .createPost(this.user,title.value, description.value, this.postSelected)
+            .createPost(this.authenticationService.currentUserValue.token, title.value, description.value, this.postSelected)
             .subscribe(
                 res => {
-                    this.router.navigate(['/posts',this.user.login])
+                    this.router.navigate(['/posts',this.authenticationService.currentUserValue.login])
                 },
                 err => this.error = err.error.message
             );
