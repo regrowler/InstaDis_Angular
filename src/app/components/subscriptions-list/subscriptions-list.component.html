@@ -1,9 +1,14 @@
 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 <h2>My subscriptions</h2>
 <ul class="users">
-    <li *ngFor="let user of users"
-        [class.selected]="user === selectedUser"
-        (click)="onSelect(user)">
-        <span class="badge">{{user.id}}</span> {{user.login}}
-    </li>
+    <div *ngIf = "users.length > 0">
+        <li *ngFor="let user of users; let i = index" [attr.data-index] = "i"
+            [class.selected]="user === selectedUser"
+            (click)="onSelect(user)">
+            <span class="badge">{{i+1}}</span> {{user.login}}
+        </li>
+    </div>
+    <div *ngIf="users.length == 0">
+        <p>You dont have subscriptions</p>
+    </div>
 </ul>
